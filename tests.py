@@ -81,6 +81,16 @@ class TestBooksCollector:
         collector.set_book_genre(name, genre)
         assert collector.get_books_with_specific_genre(genre) == [name]
 
+    @pytest.mark.parametrize('name, genre', [['1984', 'Фантастика'], ['Кладбище домашних животных', 'Ужасы'],
+                                             ['Приключения Шерлока Холмса', 'Детективы'],
+                                             ['Сказка о царе Салтане', 'Мультфильмы'], ['Комедия ошибок', 'Комедии']])
+    def test_get_books_genre(self, name, genre): #проверка вывода текущего словаря
+        collector = BooksCollector()
+        collector.add_new_book(name)
+        collector.set_book_genre(name, genre)
+        assert collector.get_books_genre()== {name : genre}
+
+
     @pytest.mark.parametrize('name, genre',
                              [['Вокруг света за 80 дней', 'Фантастика'], ['Сказка о царе Салтане', 'Мультфильмы'],
                               ['Комедия ошибок', 'Комедии']])
@@ -90,6 +100,7 @@ class TestBooksCollector:
         collector.add_new_book(name)
         collector.set_book_genre(name, genre)
         assert name in collector.get_books_for_children()
+
 
     @pytest.mark.parametrize('name, genre',
                              [['Кладбище домашних животных', 'Ужасы'], ['Приключения Шерлока Холмса', 'Детективы']])
